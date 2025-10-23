@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marcus's Clash-Who</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #2c2c54;
+            color: white;
+        }
+        h1 {
+            color: #ffd700;
+            text-align: center;
+        }
+        .info {
+            background-color: #474787;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .card {
+            background-color: #40407a;
+            border: 3px solid #ffd700;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .card.eliminated {
+            opacity: 0.3;
+            border-color: #666;
+        }
+        .card:hover:not(.eliminated) {
+            transform: scale(1.05);
+            background-color: #5c5ca8;
+        }
+        .card-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .card-stats {
+            font-size: 12px;
+            color: #ddd;
+        }
+        button {
+            background-color: #ffd700;
+            color: #2c2c54;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #ffed4e;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        ul {
+            line-height: 1.8;
+        }
+        .guess-panel {
+            background-color: #474787;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: none;
+        }
+        .guess-panel.active {
+            display: block;
+        }
+        .guess-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .guess-button {
+            background-color: #6c5ce7;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid #ffd700;
+            font-weight: bold;
+        }
+        .guess-button:hover {
+            background-color: #5f4fd1;
+            transform: scale(1.05);
+        }
+        .result {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+        }
+        .result.win {
+            background-color: #00b894;
+            display: block;
+        }
+        .result.lose {
+            background-color: #d63031;
+            display: block;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            border: 5px solid #ffd700;
+            animation: slideIn 0.5s ease-out;
+        }
+        .modal-content.win {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
+        }
+        .modal-content.lose {
+            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+        }
+        @keyframes slideIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        .modal-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .modal-message {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .modal-card {
+            background-color: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .modal-button {
+            background-color: #ffd700;
+            color: #2c2c54;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .modal-button:hover {
+            background-color: #ffed4e;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>🏆 Marcus's Clash-Who 🏆</h1>
+    
+    <div class="info">
+        <h2>How to Play:</h2>
+        <p>The computer has secretly chosen a card. Ask yourself questions and eliminate cards by clicking on them!</p>
+        <ul>
+            <li>Click on cards to eliminate them from the board</li>
+            <li>Ask questions like: "Is it a Legendary?" or "Does it cost 5+ elixir?"</li>
+            <li>Keep eliminating until you think you know the answer</li>
+            <li>Click "Make a Guess" when you're ready!</li>
+        </ul>
+    </div>
+
+    <div class="controls">
+        <button onclick="showGuessPanel()">🎯 Make a Guess</button>
+        <button onclick="resetGame()">🔄 New Game</button>
+    </div>
+
+    <div class="info">
+        <h3>Quick Filter Questions:</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
+            <button onclick="askQuestion('legendary')">Is it Legendary?</button>
+            <button onclick="askQuestion('epic')">Is it Epic?</button>
+            <button onclick="askQuestion('rare')">Is it Rare?</button>
+            <button onclick="askQuestion('common')">Is it Common?</button>
+            <button onclick="askQuestion('spell')">Is it a Spell?</button>
+            <button onclick="askQuestion('troop')">Is it a Troop?</button>
+            <button onclick="askQuestion('cheap')">Does it cost 3 or less?</button>
+            <button onclick="askQuestion('expensive')">Does it cost 5 or more?</button>
+        </div>
+    </div>
+
+    <div id="result" class="result"></div>
+
+    <div id="modal" class="modal">
+        <div id="modalContent" class="modal-content">
+            <div id="modalTitle" class="modal-title"></div>
+            <div id="modalMessage" class="modal-message"></div>
+            <div id="modalCard" class="modal-card"></div>
+            <button class="modal-button" onclick="closeModal()">Play Again</button>
+        </div>
+    </div>
+
+    <div id="guessPanel" class="guess-panel">
+        <h3>Which card do you think it is?</h3>
+        <p>Click on your guess:</p>
+        <div id="guessOptions" class="guess-options"></div>
+        <button onclick="hideGuessPanel()">❌ Cancel</button>
+    </div>
+
+    <div id="cardGrid" class="card-grid"></div>
+
+    <script>
+        const cards = [
+            {name: "Knight", elixir: 3, rarity: "Common", type: "Troop"},
+            {name: "Archers", elixir: 3, rarity: "Common", type: "Troop"},
+            {name: "Giant", elixir: 5, rarity: "Rare", type: "Troop"},
+            {name: "Wizard", elixir: 5, rarity: "Rare", type: "Troop"},
+            {name: "Mini PEKKA", elixir: 4, rarity: "Rare", type: "Troop"},
+            {name: "Fireball", elixir: 4, rarity: "Rare", type: "Spell"},
+            {name: "Goblin Barrel", elixir: 3, rarity: "Epic", type: "Spell"},
+            {name: "Hog Rider", elixir: 4, rarity: "Rare", type: "Troop"},
+            {name: "Valkyrie", elixir: 4, rarity: "Rare", type: "Troop"},
+            {name: "Baby Dragon", elixir: 4, rarity: "Epic", type: "Troop"},
+            {name: "Prince", elixir: 5, rarity: "Epic", type: "Troop"},
+            {name: "Skeleton Army", elixir: 3, rarity: "Epic", type: "Troop"},
+            {name: "Mega Knight", elixir: 7, rarity: "Legendary", type: "Troop"},
+            {name: "Electro Wizard", elixir: 4, rarity: "Legendary", type: "Troop"},
+            {name: "Princess", elixir: 3, rarity: "Legendary", type: "Troop"},
+            {name: "Sparky", elixir: 6, rarity: "Legendary", type: "Troop"},
+            {name: "Zap", elixir: 2, rarity: "Common", type: "Spell"},
+            {name: "Arrows", elixir: 3, rarity: "Common", type: "Spell"}
+        ];
+
+        let secretCard = null;
+        let eliminatedCards = [];
+
+        function startGame() {
+            secretCard = cards[Math.floor(Math.random() * cards.length)];
+            eliminatedCards = [];
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('result').className = 'result';
+            hideGuessPanel();
+            renderCards();
+            console.log('Secret card is:', secretCard.name);
+        }
+
+        function renderCards() {
+            const grid = document.getElementById('cardGrid');
+            grid.innerHTML = '';
+            
+            cards.forEach((card, index) => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'card' + (eliminatedCards.includes(index) ? ' eliminated' : '');
+                cardDiv.onclick = () => toggleCard(index);
+                cardDiv.innerHTML = `
+                    <div class="card-name">${card.name}</div>
+                    <div class="card-stats">
+                        ${card.elixir} ⚡<br>
+                        ${card.rarity}<br>
+                        ${card.type}
+                    </div>
+                `;
+                grid.appendChild(cardDiv);
+            });
+        }
+
+        function toggleCard(index) {
+            const cardIndex = eliminatedCards.indexOf(index);
+            if (cardIndex > -1) {
+                eliminatedCards.splice(cardIndex, 1);
+            } else {
+                eliminatedCards.push(index);
+            }
+            renderCards();
+        }
+
+        function showGuessPanel() {
+            const remaining = cards.filter((card, index) => !eliminatedCards.includes(index));
+            
+            if (remaining.length === 0) {
+                alert("You've eliminated all cards! Click 'New Game' to start over.");
+                return;
+            }
+            
+            const panel = document.getElementById('guessPanel');
+            const options = document.getElementById('guessOptions');
+            options.innerHTML = '';
+            
+            remaining.forEach(card => {
+                const btn = document.createElement('div');
+                btn.className = 'guess-button';
+                btn.innerHTML = `${card.name}<br><small>${card.elixir}⚡ ${card.rarity}</small>`;
+                btn.onclick = () => makeGuess(card.name);
+                options.appendChild(btn);
+            });
+            
+            panel.classList.add('active');
+        }
+
+        function hideGuessPanel() {
+            document.getElementById('guessPanel').classList.remove('active');
+        }
+
+        function makeGuess(guessedName) {
+            hideGuessPanel();
+            
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modalContent');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+            const modalCard = document.getElementById('modalCard');
+            
+            if (guessedName === secretCard.name) {
+                modalContent.className = 'modal-content win';
+                modalTitle.innerHTML = '🎉 VICTORY! 🎉';
+                modalMessage.innerHTML = 'You guessed correctly!';
+                modalCard.innerHTML = `The card was:<br>${secretCard.name}<br>${secretCard.elixir}⚡ ${secretCard.rarity} ${secretCard.type}`;
+            } else {
+                modalContent.className = 'modal-content lose';
+                modalTitle.innerHTML = '❌ DEFEATED ❌';
+                modalMessage.innerHTML = `You guessed ${guessedName}`;
+                modalCard.innerHTML = `But it was actually:<br>${secretCard.name}<br>${secretCard.elixir}⚡ ${secretCard.rarity} ${secretCard.type}`;
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            resetGame();
+        }
+
+        function resetGame() {
+            startGame();
+        }
+
+        function askQuestion(questionType) {
+            let answer;
+            let cardsToEliminate = [];
+            
+            switch(questionType) {
+                case 'legendary':
+                    answer = secretCard.rarity === 'Legendary';
+                    cardsToEliminate = cards.map((card, i) => {
+                        if (answer && card.rarity !== 'Legendary') return i;
+                        if (!answer && card.rarity === 'Legendary') return i;
+                        return -1;
+                    }).filter(i => i !== -1);
+                    break;
+                case 'epic':
+                    answer = secretCard.rarity === 'Epic';
+                    cardsToEliminate = cards.map((card, i) => {
+                        if (answer && card.rarity !== 'Epic') return i;
+                        if (!answer && card.rarity === 'Epic') return i;
+                        return -1;
+                    }).filter(i => i !== -1);
+                    break;
+                case 'rare':
+                    answer = secretCard.rarity === 'Rare';
+                    cardsToEliminate = cards.map((card, i) => {
+                        if (answer && card.rarity !== 'Rare') return i;
+                        if (!answer && card.rarity === 'Rare') return i;
+                        return -1;
+                    }).filter(i => i !== -1);
+                    break;
+                case 'common':
+                    answer = secretCard.rarity === 'Common';
+                    cardsToEliminate = cards.map((card, i) => {
+                        if (answer && card.rarity !== 'Common') return i;
+                        if (!answer && card.rarity === 'Common') return i;
+                        return -1;
+                    }).filter(i => i !== -1);
+                    break;
+                case 'spell':
+                    answer = secretCard.type === 'Spell';
+                    cardsToEliminate = cards.map((card, i) => {
+                        if (answer && card.type !== 'Spell') return i;
+                        if (!answer && card.type === 'Spell') return i;
+                        return -1;
+                    }).filter(i => i !== -1);
+                    break;
+                case 'troop':
+                    answer = secretCard.type === 'Troop';
+                    cardsToEliminate = cards.map((card, i) => {
+                        if (answer && card.type !== 'Troop') return i;
+                        if (!answer && card.type === 'Troop') return i;
+                        return -1;
+                    }).filter(i => i !== -1);
+                    break;
+                case 'cheap':
+                    answer = secretCard.elixir <= 3;
+                    cardsToEliminate = cards.map((card, i) => {
+                        if (answer && card.elixir > 3) return i;
+                        if (!answer && card.elixir <= 3) return i;
+                        return -1;
+                    }).filter(i => i !== -1);
+                    break;
+                case 'expensive':
+                    answer = secretCard.elixir >= 5;
+                    cardsToEliminate = cards.map((card, i) => {
+                        if (answer && card.elixir < 5) return i;
+                        if (!answer && card.elixir >= 5) return i;
+                        return -1;
+                    }).filter(i => i !== -1);
+                    break;
+            }
+            
+            alert(answer ? 'YES! ✅' : 'NO! ❌');
+            
+            cardsToEliminate.forEach(index => {
+                if (!eliminatedCards.includes(index)) {
+                    eliminatedCards.push(index);
+                }
+            });
+            
+            renderCards();
+            
+            const remaining = cards.filter((card, index) => !eliminatedCards.includes(index));
+            if (remaining.length === 1) {
+                setTimeout(() => {
+                    alert(`Only 1 card left! Click "Make a Guess" to see if it's ${remaining[0].name}!`);
+                }, 500);
+            }
+        }
+
+        startGame();
+    </script>
+</body>
+</html>
