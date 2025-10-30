@@ -144,6 +144,14 @@
         .feedback.incorrect {
             color: #dc3545;
         }
+
+        .error {
+            color: #dc3545;
+            padding: 10px;
+            background: #f8d7da;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -169,16 +177,80 @@
         let totalQuestions = 0;
         let answered = false;
 
+        // Hardcoded card data as fallback since APIs can have CORS issues
+        const fallbackCards = [
+            {name: "Knight", img: "https://api-assets.clashroyale.com/cards/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png"},
+            {name: "Archers", img: "https://api-assets.clashroyale.com/cards/300/W4Hmp8MTSdXANN8KdblbtHwtsbt0o749BbxNqmJYfA8.png"},
+            {name: "Giant", img: "https://api-assets.clashroyale.com/cards/300/SU4qFXmbQXWjvASxVI6z9IJuTYolx4zpFDL7p9Y1xJY.png"},
+            {name: "Goblin", img: "https://api-assets.clashroyale.com/cards/300/X_DQUye_OaS3QN6VC9CPw05His4blz_H0lQfZKfjDD8.png"},
+            {name: "Pekka", img: "https://api-assets.clashroyale.com/cards/300/MlArURKhn_zWAZY-Xj1qIRKLVKPzzmFpAttSHG4t3L0.png"},
+            {name: "Fireball", img: "https://api-assets.clashroyale.com/cards/300/lZD9MIKt2JMcnLm_ZHJW_5PXMQpGpQUbCx-IVY2nv2I.png"},
+            {name: "Mini Pekka", img: "https://api-assets.clashroyale.com/cards/300/Fmltc4j3Ve9vO-m7Wqh_LHQvYM0JiQu02Y5xc04-yH8.png"},
+            {name: "Musketeer", img: "https://api-assets.clashroyale.com/cards/300/Tex1C48UTq9FBKwWEFz4dL4Xx99wHBR68PF77vO3p8o.png"},
+            {name: "Baby Dragon", img: "https://api-assets.clashroyale.com/cards/300/cjC8RVP3d4c6J4N6KcQ_M9xxSq3tOXk0BN-L1v_mGIk.png"},
+            {name: "Prince", img: "https://api-assets.clashroyale.com/cards/300/3JntJV62aY0G2u3wWOyEjGGTveL8CEl4jVz8JV31T-w.png"},
+            {name: "Wizard", img: "https://api-assets.clashroyale.com/cards/300/TvJsuu2S4yhyk1jVYUAQXvFYjNSHZ0BkDFGH7x86VWQ.png"},
+            {name: "Skeleton Army", img: "https://api-assets.clashroyale.com/cards/300/fAOToOaxGCOz_xpRjc6EaBEd0V3f9YHdqhCOGIM1a5E.png"},
+            {name: "Witch", img: "https://api-assets.clashroyale.com/cards/300/cfwUP9p5INdGIMHNI6rN1oI8g8FUlQHmeluE_8l0Asc.png"},
+            {name: "Valkyrie", img: "https://api-assets.clashroyale.com/cards/300/0lIoYf3Y_plFTzo95zZL8daHlr29cWAPesRXMAvcxGM.png"},
+            {name: "Lightning", img: "https://api-assets.clashroyale.com/cards/300/fpOUnNQ44HawPRSNl5k7RBe7iAfP_eOPnJEiSW0L-ww.png"},
+            {name: "Hog Rider", img: "https://api-assets.clashroyale.com/cards/300/Ubu0oUl8tZkusnkZh8CBp76QQsKeAXZxP6BE1y0nCP4.png"},
+            {name: "Minion Horde", img: "https://api-assets.clashroyale.com/cards/300/xXKmGh44fQsJQ3j3iHXYjxEXSowdFWJeO5TZ-YOz7z8.png"},
+            {name: "Barbarians", img: "https://api-assets.clashroyale.com/cards/300/LHbBX6n-kBG5uI3fFbFT0ApyLvTHcQLaU-PGY25b2ss.png"},
+            {name: "Golem", img: "https://api-assets.clashroyale.com/cards/300/npdmCnET7jmVjJvjJQkFnNSNnDxYHDBigbvIAloFMds.png"},
+            {name: "Balloon", img: "https://api-assets.clashroyale.com/cards/300/qBc3sN_dXZsKy5sG0lG8oPdJhVtT3R6ckMV9HgQy49o.png"},
+            {name: "Freeze", img: "https://api-assets.clashroyale.com/cards/300/K-8FJPU1B3UWR_iKfW_xyYtQ46CzWeOU8n8OzKz3JLY.png"},
+            {name: "Elixir Collector", img: "https://api-assets.clashroyale.com/cards/300/BGLo93aHM75y4aBokzrJbdJVN3JJV8xK4tC9aDMqC-A.png"},
+            {name: "Mirror", img: "https://api-assets.clashroyale.com/cards/300/0nHPfAh_ykEp4lzvj7tL7LVVCvPqp7LscbNYNkZUHo0.png"},
+            {name: "Mega Knight", img: "https://api-assets.clashroyale.com/cards/300/ZjD69DZOcvUQxVvmBWZYbfkVIJC0Hg32dsJxu3LY9Fc.png"},
+            {name: "Electro Wizard", img: "https://api-assets.clashroyale.com/cards/300/0jHaXjw8gCCAmQHIdL-kRl7L-H8Jb1cQRofgzaNbTqw.png"}
+        ];
+
         async function loadCards() {
             try {
-                const response = await fetch('https://royaleapi.github.io/cr-api-data/json/cards.json');
-                const data = await response.json();
-                cards = data.filter(card => card.name && card.iconUrls && card.iconUrls.medium);
+                // Try multiple API endpoints
+                const endpoints = [
+                    'https://royaleapi.github.io/cr-api-data/json/cards.json',
+                    'https://api.clashroyale.com/v1/cards'
+                ];
+
+                let loaded = false;
+                
+                for (let endpoint of endpoints) {
+                    try {
+                        const response = await fetch(endpoint);
+                        if (response.ok) {
+                            const data = await response.json();
+                            if (Array.isArray(data) && data.length > 0) {
+                                cards = data.filter(card => 
+                                    card.name && (card.iconUrls?.medium || card.iconUrls || card.img)
+                                ).map(card => ({
+                                    name: card.name,
+                                    img: card.iconUrls?.medium || card.iconUrls || card.img
+                                }));
+                                loaded = true;
+                                break;
+                            }
+                        }
+                    } catch (e) {
+                        continue;
+                    }
+                }
+
+                if (!loaded || cards.length === 0) {
+                    // Use fallback data
+                    cards = fallbackCards;
+                    document.getElementById('cardDisplay').innerHTML += 
+                        '<div class="error" style="font-size: 0.9em;">Using offline card data</div>';
+                }
+
                 if (cards.length > 0) {
                     showQuestion();
                 }
             } catch (error) {
-                document.getElementById('cardDisplay').innerHTML = '<div class="loading">Error loading cards. Please refresh.</div>';
+                // Use fallback data
+                cards = fallbackCards;
+                showQuestion();
             }
         }
 
@@ -193,14 +265,14 @@
             
             // Display card image
             document.getElementById('cardDisplay').innerHTML = `
-                <img src="${currentCard.iconUrls.medium}" alt="Card" class="card-image">
+                <img src="${currentCard.img}" alt="Card" class="card-image" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%23ddd%22 width=%22200%22 height=%22200%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2220%22>?</text></svg>'">
                 <div style="font-size: 1.2em; color: #667eea; font-weight: bold;">What is this card?</div>
             `;
 
             // Generate options
             const options = generateOptions(currentCard);
             const optionsHtml = options.map(option => 
-                `<button class="option-btn" onclick="checkAnswer('${option}')">${option}</button>`
+                `<button class="option-btn" onclick="checkAnswer('${option.replace(/'/g, "\\'")}')">${option}</button>`
             ).join('');
             
             document.getElementById('options').innerHTML = optionsHtml;
