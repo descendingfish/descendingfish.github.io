@@ -3,465 +3,375 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marcus's Clash-Who</title>
+    <title>Pokemon Drawer</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #2c2c54;
-            color: white;
-        }
-        h1 {
-            color: #ffd700;
-            text-align: center;
-        }
-        .info {
-            background-color: #474787;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 10px;
-            margin: 20px 0;
-        }
-        .card {
-            background-color: #40407a;
-            border: 3px solid #ffd700;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .card.eliminated {
-            opacity: 0.3;
-            border-color: #666;
-        }
-        .card:hover:not(.eliminated) {
-            transform: scale(1.05);
-            background-color: #5c5ca8;
-        }
-        .card-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .card-stats {
-            font-size: 12px;
-            color: #ddd;
-        }
-        button {
-            background-color: #ffd700;
-            color: #2c2c54;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 5px;
-        }
-        button:hover {
-            background-color: #ffed4e;
-        }
-        .controls {
-            text-align: center;
-            margin: 20px 0;
-        }
-        ul {
-            line-height: 1.8;
-        }
-        .guess-panel {
-            background-color: #474787;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            display: none;
-        }
-        .guess-panel.active {
-            display: block;
-        }
-        .guess-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-            margin: 15px 0;
-        }
-        .guess-button {
-            background-color: #6c5ce7;
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            border: 2px solid #ffd700;
-            font-weight: bold;
-        }
-        .guess-button:hover {
-            background-color: #5f4fd1;
-            transform: scale(1.05);
-        }
-        .result {
-            text-align: center;
-            font-size: 24px;
-            margin: 20px 0;
-            padding: 20px;
-            border-radius: 8px;
-            display: none;
-        }
-        .result.win {
-            background-color: #00b894;
-            display: block;
-        }
-        .result.lose {
-            background-color: #d63031;
-            display: block;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
             justify-content: center;
             align-items: center;
-        }
-        .modal.active {
-            display: flex;
-        }
-        .modal-content {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 50px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 500px;
-            border: 5px solid #ffd700;
-            animation: slideIn 0.5s ease-out;
-        }
-        .modal-content.win {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e063 100%);
-        }
-        .modal-content.lose {
-            background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
-        }
-        @keyframes slideIn {
-            from {
-                transform: scale(0.5);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        .modal-title {
-            font-size: 48px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        .modal-message {
-            font-size: 24px;
-            margin: 20px 0;
-        }
-        .modal-card {
-            background-color: rgba(255,255,255,0.2);
             padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-size: 28px;
-            font-weight: bold;
         }
-        .modal-button {
-            background-color: #ffd700;
-            color: #2c2c54;
-            border: none;
-            padding: 15px 40px;
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
             border-radius: 10px;
-            font-size: 20px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .pokemon-card {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            display: none;
+        }
+
+        .pokemon-card.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pokemon-image {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            image-rendering: pixelated;
+        }
+
+        .pokemon-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            text-transform: capitalize;
+            margin-bottom: 10px;
+        }
+
+        .pokemon-id {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .pokemon-types {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .type-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .pokemon-stats {
+            text-align: left;
             margin-top: 20px;
         }
-        .modal-button:hover {
-            background-color: #ffed4e;
-            transform: scale(1.1);
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .stat-name {
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .error {
+            color: #e74c3c;
+            text-align: center;
+            padding: 15px;
+            background: #fadbd8;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-size: 18px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .hint {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>🏆 Marcus's Clash-Who 🏆</h1>
-    
-    <div class="info">
-        <h2>How to Play:</h2>
-        <p>The computer has secretly chosen a card. Ask yourself questions and eliminate cards by clicking on them!</p>
-        <ul>
-            <li>Click on cards to eliminate them from the board</li>
-            <li>Ask questions like: "Is it a Legendary?" or "Does it cost 5+ elixir?"</li>
-            <li>Keep eliminating until you think you know the answer</li>
-            <li>Click "Make a Guess" when you're ready!</li>
-        </ul>
-    </div>
+    <div class="container">
+        <h1>🎨 Pokemon Drawer</h1>
+        
+        <div class="input-group">
+            <input type="text" id="pokemonInput" placeholder="Enter Pokemon name or ID (e.g., pikachu or 25)">
+            <button id="drawBtn" onclick="drawPokemon()">Draw!</button>
+        </div>
 
-    <div class="controls">
-        <button onclick="showGuessPanel()">🎯 Make a Guess</button>
-        <button onclick="resetGame()">🔄 New Game</button>
-    </div>
+        <div class="hint">Try: pikachu, charizard, mewtwo, eevee, ditto, or any number 1-1025</div>
 
-    <div class="info">
-        <h3>Quick Filter Questions:</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
-            <button onclick="askQuestion('legendary')">Is it Legendary?</button>
-            <button onclick="askQuestion('epic')">Is it Epic?</button>
-            <button onclick="askQuestion('rare')">Is it Rare?</button>
-            <button onclick="askQuestion('common')">Is it Common?</button>
-            <button onclick="askQuestion('spell')">Is it a Spell?</button>
-            <button onclick="askQuestion('troop')">Is it a Troop?</button>
-            <button onclick="askQuestion('cheap')">Does it cost 3 or less?</button>
-            <button onclick="askQuestion('expensive')">Does it cost 5 or more?</button>
+        <div class="loading" id="loading">Loading Pokemon...</div>
+        <div class="error" id="error"></div>
+
+        <div class="pokemon-card" id="pokemonCard">
+            <img class="pokemon-image" id="pokemonImage" alt="Pokemon">
+            <div class="pokemon-name" id="pokemonName"></div>
+            <div class="pokemon-id" id="pokemonId"></div>
+            <div class="pokemon-types" id="pokemonTypes"></div>
+            <div class="pokemon-stats" id="pokemonStats"></div>
         </div>
     </div>
-
-    <div id="result" class="result"></div>
-
-    <div id="modal" class="modal">
-        <div id="modalContent" class="modal-content">
-            <div id="modalTitle" class="modal-title"></div>
-            <div id="modalMessage" class="modal-message"></div>
-            <div id="modalCard" class="modal-card"></div>
-            <button class="modal-button" onclick="closeModal()">Play Again</button>
-        </div>
-    </div>
-
-    <div id="guessPanel" class="guess-panel">
-        <h3>Which card do you think it is?</h3>
-        <p>Click on your guess:</p>
-        <div id="guessOptions" class="guess-options"></div>
-        <button onclick="hideGuessPanel()">❌ Cancel</button>
-    </div>
-
-    <div id="cardGrid" class="card-grid"></div>
 
     <script>
-        const cards = [
-            {name: "Knight", elixir: 3, rarity: "Common", type: "Troop"},
-            {name: "Archers", elixir: 3, rarity: "Common", type: "Troop"},
-            {name: "Giant", elixir: 5, rarity: "Rare", type: "Troop"},
-            {name: "Wizard", elixir: 5, rarity: "Rare", type: "Troop"},
-            {name: "Mini PEKKA", elixir: 4, rarity: "Rare", type: "Troop"},
-            {name: "Fireball", elixir: 4, rarity: "Rare", type: "Spell"},
-            {name: "Goblin Barrel", elixir: 3, rarity: "Epic", type: "Spell"},
-            {name: "Hog Rider", elixir: 4, rarity: "Rare", type: "Troop"},
-            {name: "Valkyrie", elixir: 4, rarity: "Rare", type: "Troop"},
-            {name: "Baby Dragon", elixir: 4, rarity: "Epic", type: "Troop"},
-            {name: "Prince", elixir: 5, rarity: "Epic", type: "Troop"},
-            {name: "Skeleton Army", elixir: 3, rarity: "Epic", type: "Troop"},
-            {name: "Mega Knight", elixir: 7, rarity: "Legendary", type: "Troop"},
-            {name: "Electro Wizard", elixir: 4, rarity: "Legendary", type: "Troop"},
-            {name: "Princess", elixir: 3, rarity: "Legendary", type: "Troop"},
-            {name: "Sparky", elixir: 6, rarity: "Legendary", type: "Troop"},
-            {name: "Zap", elixir: 2, rarity: "Common", type: "Spell"},
-            {name: "Arrows", elixir: 3, rarity: "Common", type: "Spell"}
-        ];
+        const typeColors = {
+            normal: '#A8A878',
+            fire: '#F08030',
+            water: '#6890F0',
+            electric: '#F8D030',
+            grass: '#78C850',
+            ice: '#98D8D8',
+            fighting: '#C03028',
+            poison: '#A040A0',
+            ground: '#E0C068',
+            flying: '#A890F0',
+            psychic: '#F85888',
+            bug: '#A8B820',
+            rock: '#B8A038',
+            ghost: '#705898',
+            dragon: '#7038F8',
+            dark: '#705848',
+            steel: '#B8B8D0',
+            fairy: '#EE99AC'
+        };
 
-        let secretCard = null;
-        let eliminatedCards = [];
-
-        function startGame() {
-            secretCard = cards[Math.floor(Math.random() * cards.length)];
-            eliminatedCards = [];
-            document.getElementById('result').style.display = 'none';
-            document.getElementById('result').className = 'result';
-            hideGuessPanel();
-            renderCards();
-            console.log('Secret card is:', secretCard.name);
-        }
-
-        function renderCards() {
-            const grid = document.getElementById('cardGrid');
-            grid.innerHTML = '';
-            
-            cards.forEach((card, index) => {
-                const cardDiv = document.createElement('div');
-                cardDiv.className = 'card' + (eliminatedCards.includes(index) ? ' eliminated' : '');
-                cardDiv.onclick = () => toggleCard(index);
-                cardDiv.innerHTML = `
-                    <div class="card-name">${card.name}</div>
-                    <div class="card-stats">
-                        ${card.elixir} ⚡<br>
-                        ${card.rarity}<br>
-                        ${card.type}
-                    </div>
-                `;
-                grid.appendChild(cardDiv);
-            });
-        }
-
-        function toggleCard(index) {
-            const cardIndex = eliminatedCards.indexOf(index);
-            if (cardIndex > -1) {
-                eliminatedCards.splice(cardIndex, 1);
-            } else {
-                eliminatedCards.push(index);
+        document.getElementById('pokemonInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                drawPokemon();
             }
-            renderCards();
-        }
+        });
 
-        function showGuessPanel() {
-            const remaining = cards.filter((card, index) => !eliminatedCards.includes(index));
-            
-            if (remaining.length === 0) {
-                alert("You've eliminated all cards! Click 'New Game' to start over.");
+        async function drawPokemon() {
+            const input = document.getElementById('pokemonInput').value.trim().toLowerCase();
+            const card = document.getElementById('pokemonCard');
+            const error = document.getElementById('error');
+            const loading = document.getElementById('loading');
+            const btn = document.getElementById('drawBtn');
+
+            if (!input) {
+                showError('Please enter a Pokemon name or ID!');
                 return;
             }
-            
-            const panel = document.getElementById('guessPanel');
-            const options = document.getElementById('guessOptions');
-            options.innerHTML = '';
-            
-            remaining.forEach(card => {
-                const btn = document.createElement('div');
-                btn.className = 'guess-button';
-                btn.innerHTML = `${card.name}<br><small>${card.elixir}⚡ ${card.rarity}</small>`;
-                btn.onclick = () => makeGuess(card.name);
-                options.appendChild(btn);
-            });
-            
-            panel.classList.add('active');
-        }
 
-        function hideGuessPanel() {
-            document.getElementById('guessPanel').classList.remove('active');
-        }
+            card.classList.remove('show');
+            error.classList.remove('show');
+            loading.classList.add('show');
+            btn.disabled = true;
 
-        function makeGuess(guessedName) {
-            hideGuessPanel();
-            
-            const modal = document.getElementById('modal');
-            const modalContent = document.getElementById('modalContent');
-            const modalTitle = document.getElementById('modalTitle');
-            const modalMessage = document.getElementById('modalMessage');
-            const modalCard = document.getElementById('modalCard');
-            
-            if (guessedName === secretCard.name) {
-                modalContent.className = 'modal-content win';
-                modalTitle.innerHTML = '🎉 VICTORY! 🎉';
-                modalMessage.innerHTML = 'You guessed correctly!';
-                modalCard.innerHTML = `The card was:<br>${secretCard.name}<br>${secretCard.elixir}⚡ ${secretCard.rarity} ${secretCard.type}`;
-            } else {
-                modalContent.className = 'modal-content lose';
-                modalTitle.innerHTML = '❌ DEFEATED ❌';
-                modalMessage.innerHTML = `You guessed ${guessedName}`;
-                modalCard.innerHTML = `But it was actually:<br>${secretCard.name}<br>${secretCard.elixir}⚡ ${secretCard.rarity} ${secretCard.type}`;
-            }
-            
-            modal.classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-            resetGame();
-        }
-
-        function resetGame() {
-            startGame();
-        }
-
-        function askQuestion(questionType) {
-            let answer;
-            let cardsToEliminate = [];
-            
-            switch(questionType) {
-                case 'legendary':
-                    answer = secretCard.rarity === 'Legendary';
-                    cardsToEliminate = cards.map((card, i) => {
-                        if (answer && card.rarity !== 'Legendary') return i;
-                        if (!answer && card.rarity === 'Legendary') return i;
-                        return -1;
-                    }).filter(i => i !== -1);
-                    break;
-                case 'epic':
-                    answer = secretCard.rarity === 'Epic';
-                    cardsToEliminate = cards.map((card, i) => {
-                        if (answer && card.rarity !== 'Epic') return i;
-                        if (!answer && card.rarity === 'Epic') return i;
-                        return -1;
-                    }).filter(i => i !== -1);
-                    break;
-                case 'rare':
-                    answer = secretCard.rarity === 'Rare';
-                    cardsToEliminate = cards.map((card, i) => {
-                        if (answer && card.rarity !== 'Rare') return i;
-                        if (!answer && card.rarity === 'Rare') return i;
-                        return -1;
-                    }).filter(i => i !== -1);
-                    break;
-                case 'common':
-                    answer = secretCard.rarity === 'Common';
-                    cardsToEliminate = cards.map((card, i) => {
-                        if (answer && card.rarity !== 'Common') return i;
-                        if (!answer && card.rarity === 'Common') return i;
-                        return -1;
-                    }).filter(i => i !== -1);
-                    break;
-                case 'spell':
-                    answer = secretCard.type === 'Spell';
-                    cardsToEliminate = cards.map((card, i) => {
-                        if (answer && card.type !== 'Spell') return i;
-                        if (!answer && card.type === 'Spell') return i;
-                        return -1;
-                    }).filter(i => i !== -1);
-                    break;
-                case 'troop':
-                    answer = secretCard.type === 'Troop';
-                    cardsToEliminate = cards.map((card, i) => {
-                        if (answer && card.type !== 'Troop') return i;
-                        if (!answer && card.type === 'Troop') return i;
-                        return -1;
-                    }).filter(i => i !== -1);
-                    break;
-                case 'cheap':
-                    answer = secretCard.elixir <= 3;
-                    cardsToEliminate = cards.map((card, i) => {
-                        if (answer && card.elixir > 3) return i;
-                        if (!answer && card.elixir <= 3) return i;
-                        return -1;
-                    }).filter(i => i !== -1);
-                    break;
-                case 'expensive':
-                    answer = secretCard.elixir >= 5;
-                    cardsToEliminate = cards.map((card, i) => {
-                        if (answer && card.elixir < 5) return i;
-                        if (!answer && card.elixir >= 5) return i;
-                        return -1;
-                    }).filter(i => i !== -1);
-                    break;
-            }
-            
-            alert(answer ? 'YES! ✅' : 'NO! ❌');
-            
-            cardsToEliminate.forEach(index => {
-                if (!eliminatedCards.includes(index)) {
-                    eliminatedCards.push(index);
+            try {
+                console.log('Fetching Pokemon:', input);
+                
+                // Try primary API
+                let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${input}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                console.log('Response status:', response.status);
+                console.log('Response ok:', response.ok);
+                
+                if (!response.ok) {
+                    if (response.status === 404) {
+                        throw new Error('Pokemon not found! Check the spelling or try a number between 1-1025.');
+                    } else {
+                        throw new Error(`Network error (${response.status}). Please check your internet connection.`);
+                    }
                 }
-            });
-            
-            renderCards();
-            
-            const remaining = cards.filter((card, index) => !eliminatedCards.includes(index));
-            if (remaining.length === 1) {
-                setTimeout(() => {
-                    alert(`Only 1 card left! Click "Make a Guess" to see if it's ${remaining[0].name}!`);
-                }, 500);
+
+                const data = await response.json();
+                console.log('Pokemon data received:', data.name);
+                displayPokemon(data);
+            } catch (err) {
+                console.error('Full error:', err);
+                if (err.message.includes('fetch')) {
+                    showError('Network error! Check your internet connection or try again.');
+                } else {
+                    showError(err.message || 'Could not find that Pokemon. Try: pikachu, charizard, or numbers 1-1025');
+                }
+            } finally {
+                loading.classList.remove('show');
+                btn.disabled = false;
             }
         }
 
-        startGame();
+        function displayPokemon(data) {
+            try {
+                // Set image with fallback chain
+                const imageUrl = data.sprites.other?.['official-artwork']?.front_default || 
+                               data.sprites.other?.dream_world?.front_default ||
+                               data.sprites.front_default;
+                
+                const img = document.getElementById('pokemonImage');
+                img.src = imageUrl;
+                img.onerror = function() {
+                    // If image fails to load, use a backup
+                    this.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${data.id}.png`;
+                };
+                
+                document.getElementById('pokemonName').textContent = data.name;
+                document.getElementById('pokemonId').textContent = `#${String(data.id).padStart(4, '0')}`;
+
+                // Display types
+                const typesContainer = document.getElementById('pokemonTypes');
+                typesContainer.innerHTML = '';
+                data.types.forEach(typeInfo => {
+                    const badge = document.createElement('span');
+                    badge.className = 'type-badge';
+                    badge.textContent = typeInfo.type.name;
+                    badge.style.backgroundColor = typeColors[typeInfo.type.name] || '#777';
+                    typesContainer.appendChild(badge);
+                });
+
+                // Display stats
+                const statsContainer = document.getElementById('pokemonStats');
+                statsContainer.innerHTML = '<h3 style="margin-bottom: 10px;">Stats:</h3>';
+                data.stats.forEach(statInfo => {
+                    const row = document.createElement('div');
+                    row.className = 'stat-row';
+                    row.innerHTML = `
+                        <span class="stat-name">${statInfo.stat.name.replace('-', ' ')}:</span>
+                        <span>${statInfo.base_stat}</span>
+                    `;
+                    statsContainer.appendChild(row);
+                });
+
+                document.getElementById('pokemonCard').classList.add('show');
+            } catch (displayErr) {
+                console.error('Display error:', displayErr);
+                showError('Error displaying Pokemon. Try another one!');
+            }
+        }
+
+        function showError(message) {
+            const error = document.getElementById('error');
+            error.textContent = message;
+            error.classList.add('show');
+            setTimeout(() => {
+                error.classList.remove('show');
+            }, 5000);
+        }
+
+        // Test connection on load
+        console.log('Pokemon Drawer loaded!');
+        console.log('Testing API connection...');
+        fetch('https://pokeapi.co/api/v2/pokemon/pikachu')
+            .then(r => {
+                console.log('API test:', r.ok ? 'SUCCESS ✓' : 'FAILED ✗');
+                console.log('Status:', r.status);
+            })
+            .catch(e => {
+                console.error('API test failed:', e);
+                document.getElementById('error').textContent = 'Warning: API connection issue detected. Some features may not work.';
+                document.getElementById('error').classList.add('show');
+            });
     </script>
 </body>
 </html>
