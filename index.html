@@ -45,29 +45,54 @@
         }
 
         .card-display {
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             border-radius: 15px;
             padding: 30px;
             text-align: center;
             margin-bottom: 30px;
-            min-height: 300px;
+            min-height: 250px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
-        .card-image {
-            max-width: 200px;
-            max-height: 200px;
-            border-radius: 10px;
+        .card-emoji {
+            font-size: 100px;
             margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-info {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .card-elixir {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #8b5cf6;
+        }
+
+        .card-type {
+            font-size: 1.1em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .question {
+            font-size: 1.3em;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .loading {
             font-size: 1.2em;
-            color: #667eea;
+            color: white;
         }
 
         .options {
@@ -86,7 +111,7 @@
             transition: all 0.3s ease;
         }
 
-        .option-btn:hover {
+        .option-btn:hover:not(:disabled) {
             background: #e9ecef;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -120,7 +145,7 @@
             transition: background 0.3s ease;
         }
 
-        .next-btn:hover {
+        .next-btn:hover:not(:disabled) {
             background: #5568d3;
         }
 
@@ -144,14 +169,6 @@
         .feedback.incorrect {
             color: #dc3545;
         }
-
-        .error {
-            color: #dc3545;
-            padding: 10px;
-            background: #f8d7da;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
@@ -160,7 +177,7 @@
         <div class="score">Score: <span id="score">0</span> / <span id="total">0</span></div>
         
         <div class="card-display" id="cardDisplay">
-            <div class="loading">Loading cards...</div>
+            <div class="loading">Loading quiz...</div>
         </div>
 
         <div class="feedback" id="feedback"></div>
@@ -171,88 +188,48 @@
     </div>
 
     <script>
-        let cards = [];
+        const cards = [
+            {name: "Knight", emoji: "⚔️", elixir: 3, type: "Troop"},
+            {name: "Archers", emoji: "🏹", elixir: 3, type: "Troop"},
+            {name: "Giant", emoji: "👹", elixir: 5, type: "Troop"},
+            {name: "Goblins", emoji: "👺", elixir: 2, type: "Troop"},
+            {name: "P.E.K.K.A", emoji: "🤖", elixir: 7, type: "Troop"},
+            {name: "Fireball", emoji: "🔥", elixir: 4, type: "Spell"},
+            {name: "Mini P.E.K.K.A", emoji: "🦾", elixir: 4, type: "Troop"},
+            {name: "Musketeer", emoji: "💂", elixir: 4, type: "Troop"},
+            {name: "Baby Dragon", emoji: "🐲", elixir: 4, type: "Troop"},
+            {name: "Prince", emoji: "🤴", elixir: 5, type: "Troop"},
+            {name: "Wizard", emoji: "🧙", elixir: 5, type: "Troop"},
+            {name: "Skeleton Army", emoji: "💀", elixir: 3, type: "Troop"},
+            {name: "Witch", emoji: "🧙‍♀️", elixir: 5, type: "Troop"},
+            {name: "Valkyrie", emoji: "⚔️👸", elixir: 4, type: "Troop"},
+            {name: "Lightning", emoji: "⚡", elixir: 6, type: "Spell"},
+            {name: "Hog Rider", emoji: "🐗", elixir: 4, type: "Troop"},
+            {name: "Minion Horde", emoji: "🦇", elixir: 5, type: "Troop"},
+            {name: "Barbarians", emoji: "🪓", elixir: 5, type: "Troop"},
+            {name: "Golem", emoji: "🗿", elixir: 8, type: "Troop"},
+            {name: "Balloon", emoji: "🎈", elixir: 5, type: "Troop"},
+            {name: "Freeze", emoji: "❄️", elixir: 4, type: "Spell"},
+            {name: "Mirror", emoji: "🪞", elixir: 1, type: "Spell"},
+            {name: "Mega Knight", emoji: "👑", elixir: 7, type: "Troop"},
+            {name: "Electro Wizard", emoji: "⚡🧙", elixir: 4, type: "Troop"},
+            {name: "Sparky", emoji: "⚙️", elixir: 6, type: "Troop"},
+            {name: "Miner", emoji: "⛏️", elixir: 3, type: "Troop"},
+            {name: "Ice Wizard", emoji: "🧊🧙", elixir: 3, type: "Troop"},
+            {name: "Lava Hound", emoji: "🌋", elixir: 7, type: "Troop"},
+            {name: "The Log", emoji: "🪵", elixir: 2, type: "Spell"},
+            {name: "Inferno Dragon", emoji: "🔥🐉", elixir: 4, type: "Troop"},
+            {name: "Arrows", emoji: "➡️", elixir: 3, type: "Spell"},
+            {name: "Rocket", emoji: "🚀", elixir: 6, type: "Spell"},
+            {name: "Tornado", emoji: "🌪️", elixir: 3, type: "Spell"},
+            {name: "Zap", emoji: "⚡💥", elixir: 2, type: "Spell"},
+            {name: "Poison", emoji: "☠️", elixir: 4, type: "Spell"}
+        ];
+
         let currentCard = null;
         let score = 0;
         let totalQuestions = 0;
         let answered = false;
-
-        // Hardcoded card data with working image URLs
-        const fallbackCards = [
-            {name: "Knight", img: "https://clashroyale.com/uploaded-images-blog/Knight_Card.png"},
-            {name: "Archers", img: "https://clashroyale.com/uploaded-images-blog/Archers_Card.png"},
-            {name: "Giant", img: "https://clashroyale.com/uploaded-images-blog/Giant_Card.png"},
-            {name: "Goblins", img: "https://clashroyale.com/uploaded-images-blog/Goblins_Card.png"},
-            {name: "Pekka", img: "https://clashroyale.com/uploaded-images-blog/P.E.K.K.A_Card.png"},
-            {name: "Fireball", img: "https://clashroyale.com/uploaded-images-blog/Fireball_Card.png"},
-            {name: "Mini Pekka", img: "https://clashroyale.com/uploaded-images-blog/Mini_P.E.K.K.A_Card.png"},
-            {name: "Musketeer", img: "https://clashroyale.com/uploaded-images-blog/Musketeer_Card.png"},
-            {name: "Baby Dragon", img: "https://clashroyale.com/uploaded-images-blog/Baby_Dragon_Card.png"},
-            {name: "Prince", img: "https://clashroyale.com/uploaded-images-blog/Prince_Card.png"},
-            {name: "Wizard", img: "https://clashroyale.com/uploaded-images-blog/Wizard_Card.png"},
-            {name: "Skeleton Army", img: "https://clashroyale.com/uploaded-images-blog/Skeleton_Army_Card.png"},
-            {name: "Witch", img: "https://clashroyale.com/uploaded-images-blog/Witch_Card.png"},
-            {name: "Valkyrie", img: "https://clashroyale.com/uploaded-images-blog/Valkyrie_Card.png"},
-            {name: "Lightning", img: "https://clashroyale.com/uploaded-images-blog/Lightning_Card.png"},
-            {name: "Hog Rider", img: "https://clashroyale.com/uploaded-images-blog/Hog_Rider_Card.png"},
-            {name: "Minion Horde", img: "https://clashroyale.com/uploaded-images-blog/Minion_Horde_Card.png"},
-            {name: "Barbarians", img: "https://clashroyale.com/uploaded-images-blog/Barbarians_Card.png"},
-            {name: "Golem", img: "https://clashroyale.com/uploaded-images-blog/Golem_Card.png"},
-            {name: "Balloon", img: "https://clashroyale.com/uploaded-images-blog/Balloon_Card.png"},
-            {name: "Freeze", img: "https://clashroyale.com/uploaded-images-blog/Freeze_Card.png"},
-            {name: "Mirror", img: "https://clashroyale.com/uploaded-images-blog/Mirror_Card.png"},
-            {name: "Mega Knight", img: "https://clashroyale.com/uploaded-images-blog/Mega_Knight_Card.png"},
-            {name: "Electro Wizard", img: "https://clashroyale.com/uploaded-images-blog/Electro_Wizard_Card.png"},
-            {name: "Sparky", img: "https://clashroyale.com/uploaded-images-blog/Sparky_Card.png"}
-        ];
-
-        async function loadCards() {
-            try {
-                // Try multiple API endpoints
-                const endpoints = [
-                    'https://royaleapi.github.io/cr-api-data/json/cards.json',
-                    'https://api.clashroyale.com/v1/cards'
-                ];
-
-                let loaded = false;
-                
-                for (let endpoint of endpoints) {
-                    try {
-                        const response = await fetch(endpoint);
-                        if (response.ok) {
-                            const data = await response.json();
-                            if (Array.isArray(data) && data.length > 0) {
-                                cards = data.filter(card => 
-                                    card.name && (card.iconUrls?.medium || card.iconUrls || card.img)
-                                ).map(card => ({
-                                    name: card.name,
-                                    img: card.iconUrls?.medium || card.iconUrls || card.img
-                                }));
-                                loaded = true;
-                                break;
-                            }
-                        }
-                    } catch (e) {
-                        continue;
-                    }
-                }
-
-                if (!loaded || cards.length === 0) {
-                    // Use fallback data
-                    cards = fallbackCards;
-                    document.getElementById('cardDisplay').innerHTML += 
-                        '<div class="error" style="font-size: 0.9em;">Using offline card data</div>';
-                }
-
-                if (cards.length > 0) {
-                    showQuestion();
-                }
-            } catch (error) {
-                // Use fallback data
-                cards = fallbackCards;
-                showQuestion();
-            }
-        }
 
         function showQuestion() {
             answered = false;
@@ -260,16 +237,17 @@
             document.getElementById('feedback').textContent = '';
             document.getElementById('feedback').className = 'feedback';
 
-            // Pick random card
             currentCard = cards[Math.floor(Math.random() * cards.length)];
             
-            // Display card image
             document.getElementById('cardDisplay').innerHTML = `
-                <img src="${currentCard.img}" alt="Card" class="card-image" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%23ddd%22 width=%22200%22 height=%22200%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2220%22>?</text></svg>'">
-                <div style="font-size: 1.2em; color: #667eea; font-weight: bold;">What is this card?</div>
+                <div class="card-emoji">${currentCard.emoji}</div>
+                <div class="card-info">
+                    <div class="card-elixir">💧 ${currentCard.elixir} Elixir</div>
+                    <div class="card-type">${currentCard.type}</div>
+                </div>
+                <div class="question">What is this card?</div>
             `;
 
-            // Generate options
             const options = generateOptions(currentCard);
             const optionsHtml = options.map(option => 
                 `<button class="option-btn" onclick="checkAnswer('${option.replace(/'/g, "\\'")}')">${option}</button>`
@@ -288,7 +266,6 @@
                 options.push(randomCard.name);
             }
             
-            // Shuffle options
             return options.sort(() => Math.random() - 0.5);
         }
 
@@ -328,8 +305,7 @@
             showQuestion();
         }
 
-        // Start the quiz
-        loadCards();
+        showQuestion();
     </script>
 </body>
 </html>
