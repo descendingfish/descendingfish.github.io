@@ -177,33 +177,33 @@
         let totalQuestions = 0;
         let answered = false;
 
-        // Hardcoded card data as fallback since APIs can have CORS issues
+        // Hardcoded card data with working image URLs
         const fallbackCards = [
-            {name: "Knight", img: "https://api-assets.clashroyale.com/cards/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png"},
-            {name: "Archers", img: "https://api-assets.clashroyale.com/cards/300/W4Hmp8MTSdXANN8KdblbtHwtsbt0o749BbxNqmJYfA8.png"},
-            {name: "Giant", img: "https://api-assets.clashroyale.com/cards/300/SU4qFXmbQXWjvASxVI6z9IJuTYolx4zpFDL7p9Y1xJY.png"},
-            {name: "Goblin", img: "https://api-assets.clashroyale.com/cards/300/X_DQUye_OaS3QN6VC9CPw05His4blz_H0lQfZKfjDD8.png"},
-            {name: "Pekka", img: "https://api-assets.clashroyale.com/cards/300/MlArURKhn_zWAZY-Xj1qIRKLVKPzzmFpAttSHG4t3L0.png"},
-            {name: "Fireball", img: "https://api-assets.clashroyale.com/cards/300/lZD9MIKt2JMcnLm_ZHJW_5PXMQpGpQUbCx-IVY2nv2I.png"},
-            {name: "Mini Pekka", img: "https://api-assets.clashroyale.com/cards/300/Fmltc4j3Ve9vO-m7Wqh_LHQvYM0JiQu02Y5xc04-yH8.png"},
-            {name: "Musketeer", img: "https://api-assets.clashroyale.com/cards/300/Tex1C48UTq9FBKwWEFz4dL4Xx99wHBR68PF77vO3p8o.png"},
-            {name: "Baby Dragon", img: "https://api-assets.clashroyale.com/cards/300/cjC8RVP3d4c6J4N6KcQ_M9xxSq3tOXk0BN-L1v_mGIk.png"},
-            {name: "Prince", img: "https://api-assets.clashroyale.com/cards/300/3JntJV62aY0G2u3wWOyEjGGTveL8CEl4jVz8JV31T-w.png"},
-            {name: "Wizard", img: "https://api-assets.clashroyale.com/cards/300/TvJsuu2S4yhyk1jVYUAQXvFYjNSHZ0BkDFGH7x86VWQ.png"},
-            {name: "Skeleton Army", img: "https://api-assets.clashroyale.com/cards/300/fAOToOaxGCOz_xpRjc6EaBEd0V3f9YHdqhCOGIM1a5E.png"},
-            {name: "Witch", img: "https://api-assets.clashroyale.com/cards/300/cfwUP9p5INdGIMHNI6rN1oI8g8FUlQHmeluE_8l0Asc.png"},
-            {name: "Valkyrie", img: "https://api-assets.clashroyale.com/cards/300/0lIoYf3Y_plFTzo95zZL8daHlr29cWAPesRXMAvcxGM.png"},
-            {name: "Lightning", img: "https://api-assets.clashroyale.com/cards/300/fpOUnNQ44HawPRSNl5k7RBe7iAfP_eOPnJEiSW0L-ww.png"},
-            {name: "Hog Rider", img: "https://api-assets.clashroyale.com/cards/300/Ubu0oUl8tZkusnkZh8CBp76QQsKeAXZxP6BE1y0nCP4.png"},
-            {name: "Minion Horde", img: "https://api-assets.clashroyale.com/cards/300/xXKmGh44fQsJQ3j3iHXYjxEXSowdFWJeO5TZ-YOz7z8.png"},
-            {name: "Barbarians", img: "https://api-assets.clashroyale.com/cards/300/LHbBX6n-kBG5uI3fFbFT0ApyLvTHcQLaU-PGY25b2ss.png"},
-            {name: "Golem", img: "https://api-assets.clashroyale.com/cards/300/npdmCnET7jmVjJvjJQkFnNSNnDxYHDBigbvIAloFMds.png"},
-            {name: "Balloon", img: "https://api-assets.clashroyale.com/cards/300/qBc3sN_dXZsKy5sG0lG8oPdJhVtT3R6ckMV9HgQy49o.png"},
-            {name: "Freeze", img: "https://api-assets.clashroyale.com/cards/300/K-8FJPU1B3UWR_iKfW_xyYtQ46CzWeOU8n8OzKz3JLY.png"},
-            {name: "Elixir Collector", img: "https://api-assets.clashroyale.com/cards/300/BGLo93aHM75y4aBokzrJbdJVN3JJV8xK4tC9aDMqC-A.png"},
-            {name: "Mirror", img: "https://api-assets.clashroyale.com/cards/300/0nHPfAh_ykEp4lzvj7tL7LVVCvPqp7LscbNYNkZUHo0.png"},
-            {name: "Mega Knight", img: "https://api-assets.clashroyale.com/cards/300/ZjD69DZOcvUQxVvmBWZYbfkVIJC0Hg32dsJxu3LY9Fc.png"},
-            {name: "Electro Wizard", img: "https://api-assets.clashroyale.com/cards/300/0jHaXjw8gCCAmQHIdL-kRl7L-H8Jb1cQRofgzaNbTqw.png"}
+            {name: "Knight", img: "https://clashroyale.com/uploaded-images-blog/Knight_Card.png"},
+            {name: "Archers", img: "https://clashroyale.com/uploaded-images-blog/Archers_Card.png"},
+            {name: "Giant", img: "https://clashroyale.com/uploaded-images-blog/Giant_Card.png"},
+            {name: "Goblins", img: "https://clashroyale.com/uploaded-images-blog/Goblins_Card.png"},
+            {name: "Pekka", img: "https://clashroyale.com/uploaded-images-blog/P.E.K.K.A_Card.png"},
+            {name: "Fireball", img: "https://clashroyale.com/uploaded-images-blog/Fireball_Card.png"},
+            {name: "Mini Pekka", img: "https://clashroyale.com/uploaded-images-blog/Mini_P.E.K.K.A_Card.png"},
+            {name: "Musketeer", img: "https://clashroyale.com/uploaded-images-blog/Musketeer_Card.png"},
+            {name: "Baby Dragon", img: "https://clashroyale.com/uploaded-images-blog/Baby_Dragon_Card.png"},
+            {name: "Prince", img: "https://clashroyale.com/uploaded-images-blog/Prince_Card.png"},
+            {name: "Wizard", img: "https://clashroyale.com/uploaded-images-blog/Wizard_Card.png"},
+            {name: "Skeleton Army", img: "https://clashroyale.com/uploaded-images-blog/Skeleton_Army_Card.png"},
+            {name: "Witch", img: "https://clashroyale.com/uploaded-images-blog/Witch_Card.png"},
+            {name: "Valkyrie", img: "https://clashroyale.com/uploaded-images-blog/Valkyrie_Card.png"},
+            {name: "Lightning", img: "https://clashroyale.com/uploaded-images-blog/Lightning_Card.png"},
+            {name: "Hog Rider", img: "https://clashroyale.com/uploaded-images-blog/Hog_Rider_Card.png"},
+            {name: "Minion Horde", img: "https://clashroyale.com/uploaded-images-blog/Minion_Horde_Card.png"},
+            {name: "Barbarians", img: "https://clashroyale.com/uploaded-images-blog/Barbarians_Card.png"},
+            {name: "Golem", img: "https://clashroyale.com/uploaded-images-blog/Golem_Card.png"},
+            {name: "Balloon", img: "https://clashroyale.com/uploaded-images-blog/Balloon_Card.png"},
+            {name: "Freeze", img: "https://clashroyale.com/uploaded-images-blog/Freeze_Card.png"},
+            {name: "Mirror", img: "https://clashroyale.com/uploaded-images-blog/Mirror_Card.png"},
+            {name: "Mega Knight", img: "https://clashroyale.com/uploaded-images-blog/Mega_Knight_Card.png"},
+            {name: "Electro Wizard", img: "https://clashroyale.com/uploaded-images-blog/Electro_Wizard_Card.png"},
+            {name: "Sparky", img: "https://clashroyale.com/uploaded-images-blog/Sparky_Card.png"}
         ];
 
         async function loadCards() {
