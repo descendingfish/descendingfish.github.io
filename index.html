@@ -1,255 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clash Royale - Home</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        nav {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 20px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2em;
-            font-weight: 600;
-            padding: 10px 20px;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        nav a:hover,
-        nav a.active {
-            background: #667eea;
-            transform: translateY(-2px);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .hero {
-            background: white;
-            border-radius: 20px;
-            padding: 60px 40px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            margin-bottom: 40px;
-        }
-
-        .hero h1 {
-            color: #1e3c72;
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .hero .subtitle {
-            font-size: 1.5em;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .hero-emoji {
-            font-size: 100px;
-            margin: 30px 0;
-        }
-
-        .content-section {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
-        }
-
-        .content-section h2 {
-            color: #1e3c72;
-            font-size: 2.2em;
-            margin-bottom: 20px;
-            border-bottom: 4px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        .content-section p {
-            font-size: 1.2em;
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 15px;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        .feature-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-card .emoji {
-            font-size: 60px;
-            margin-bottom: 15px;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-
-        .feature-card p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1em;
-        }
-
-        footer {
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            text-align: center;
-            padding: 30px;
-            margin-top: 40px;
-        }
-
-        footer p {
-            font-size: 1.1em;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beautiful Trees - Home</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="projects.html">Gallery</a></li>
-        </ul>
-    </nav>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+    </ul>
+  </nav>
 
-    <div class="container">
-        <div class="hero">
-            <div class="hero-emoji">⚔️👑🏆</div>
-            <h1>Clash Royale</h1>
-            <p class="subtitle">Enter the Arena. Master the Cards. Claim Victory!</p>
-        </div>
+  <div class="container">
+    <h1>Welcome to My Tree Garden</h1>
+    <p>Explore a collection of beautiful trees including Japanese Maples and uniquely shaped evergreens. Each one adds a touch of natural beauty and tranquility to any landscape.</p>
+    <img src="assets/pic1.jpg" alt="Japanese Maple" width="400" style="border-radius:10px;">
+  </div>
 
-        <div class="content-section">
-            <h2>Welcome to Clash Royale</h2>
-            <p>
-                Clash Royale is a real-time multiplayer battle game developed by Supercell. 
-                Combining elements of collectible card games, tower defense, and multiplayer 
-                online battle arena, Clash Royale offers an exciting and strategic gaming experience.
-            </p>
-            <p>
-                Players collect and upgrade cards featuring Clash of Clans troops, spells, and 
-                defenses, then use them to battle opponents in fast-paced, three-minute matches. 
-                The goal? Destroy your opponent's towers while defending your own!
-            </p>
-            <p>
-                With over 100 unique cards to unlock and master, countless strategic combinations, 
-                and a vibrant competitive scene, Clash Royale continues to captivate millions of 
-                players worldwide since its launch in 2016.
-            </p>
-        </div>
-
-        <div class="content-section">
-            <h2>Game Features</h2>
-            <div class="features">
-                <div class="feature-card">
-                    <div class="emoji">🃏</div>
-                    <h3>100+ Cards</h3>
-                    <p>Collect troops, spells, and buildings across 5 rarities</p>
-                </div>
-                <div class="feature-card">
-                    <div class="emoji">⚡</div>
-                    <h3>Real-Time Battles</h3>
-                    <p>Fast-paced 3-minute duels against players worldwide</p>
-                </div>
-                <div class="feature-card">
-                    <div class="emoji">🏟️</div>
-                    <h3>Multiple Arenas</h3>
-                    <p>Progress through 15+ unique battle arenas</p>
-                </div>
-                <div class="feature-card">
-                    <div class="emoji">👥</div>
-                    <h3>Clan Wars</h3>
-                    <p>Team up with friends for epic clan battles</p>
-                </div>
-                <div class="feature-card">
-                    <div class="emoji">🎯</div>
-                    <h3>Strategy & Skill</h3>
-                    <p>Build the perfect deck and master your tactics</p>
-                </div>
-                <div class="feature-card">
-                    <div class="emoji">🏅</div>
-                    <h3>Competitive Scene</h3>
-                    <p>Join tournaments and climb the global leaderboards</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2024 Clash Royale Fan Site | Game by Supercell</p>
-        <p>This is an unofficial fan website. Clash Royale is a trademark of Supercell Oy.</p>
-    </footer>
+  <footer>
+    <p>© 2025 My Tree Garden</p>
+  </footer>
 </body>
 </html>
-
-<!-- 
-FOLDER STRUCTURE:
-project-folder/
-├── index.html (this file - homepage)
-├── about.html (about page)
-├── projects.html (gallery page)
-└── assets/
-    ├── pic1.jpg (card image 1)
-    ├── pic2.jpg (card image 2)
-    └── pic3.jpg (card image 3)
-
-TO GET IMAGES FROM CLASH ROYALE WIKI:
-1. Visit: https://clashroyale.fandom.com/wiki/Category:Card_Images
-2. Click on any card image (e.g., "File:KnightCard.png")
-3. Right-click the image and "Save image as..."
-4. Save as pic1.jpg, pic2.jpg, pic3.jpg in the assets folder
-5. Recommended cards: Knight, Wizard, P.E.K.K.A (popular cards with good visuals)
-
-ALTERNATIVE METHOD:
-Use placeholder images or screenshots from the game until you can get official images.
--->
