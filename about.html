@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Clash Royale</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            color: #1e3c72;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .page-header .emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .content-section h2 {
+            color: #1e3c72;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .content-section h3 {
+            color: #667eea;
+            font-size: 1.6em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .content-section p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+
+        .content-section li {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-box .number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-box .label {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+        }
+
+        .timeline-item h4 {
+            color: #1e3c72;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item p {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 0;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+            <li><a href="projects.html">Gallery</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="page-header">
+            <div class="emoji">📖</div>
+            <h1>About Clash Royale</h1>
+        </div>
+
+        <div class="content-section">
+            <h2>The Game</h2>
+            <p>
+                Clash Royale is a freemium real-time strategy video game developed and published by 
+                Supercell. Released globally on March 2, 2016, the game combines elements from 
+                collectible card games, tower defense, and multiplayer online battle arena games.
+            </p>
+            <p>
+                In Clash Royale, players compete in 1v1 or 2v2 battles with the objective of 
+                destroying more opponent towers than they destroy of yours. Each match lasts three 
+                minutes, with overtime periods if needed. Players build decks of eight cards and 
+                deploy troops, spells, and buildings using elixir, which regenerates throughout the battle.
+            </p>
+
+            <h3>Gameplay Mechanics</h3>
+            <ul>
+                <li><strong>Elixir Management:</strong> Strategic resource that regenerates over time, used to deploy cards</li>
+                <li><strong>Deck Building:</strong> Choose 8 cards from over 100 available options</li>
+                <li><strong>Tower Defense:</strong> Protect your three towers while attacking opponent towers</li>
+                <li><strong>Real-Time Strategy:</strong> Make split-second decisions in fast-paced battles</li>
+                <li><strong>Card Leveling:</strong> Upgrade cards to increase their power and effectiveness</li>
+            </ul>
+
+            <h3>Card Types</h3>
+            <p>
+                Cards are categorized into four main types:
+            </p>
+            <ul>
+                <li><strong>Troops:</strong> Mobile units that attack enemies (e.g., Knight, Wizard, P.E.K.K.A)</li>
+                <li><strong>Spells:</strong> Instant effects that can damage or buff (e.g., Fireball, Freeze, Rage)</li>
+                <li><strong>Buildings:</strong> Defensive or spawning structures (e.g., Cannon, Inferno Tower)</li>
+                <li><strong>Tower Troops:</strong> Special units that stay on your towers</li>
+            </ul>
+
+            <h3>Card Rarities</h3>
+            <ul>
+                <li><strong>Common:</strong> Most abundant, easy to upgrade (grey/blue)</li>
+                <li><strong>Rare:</strong> More powerful, moderate availability (orange)</li>
+                <li><strong>Epic:</strong> Strong cards with unique abilities (purple)</li>
+                <li><strong>Legendary:</strong> Extremely powerful and rare (rainbow gradient)</li>
+                <li><strong>Champion:</strong> Ultimate cards with special abilities (bright yellow)</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>Game Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="number">121</div>
+                    <div class="label">Total Cards</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">$2.5B</div>
+                    <div class="label">Revenue (3 years)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">15+</div>
+                    <div class="label">Battle Arenas</div>
+                </div>
+                <div class="stat-box">
+                    <div class="number">2016</div>
+                    <div class="label">Global Launch</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Major Updates Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>March 2, 2016 - Global Launch</h4>
+                    <p>Clash Royale launches worldwide with 42 cards across three rarities</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>February 2016 - Legendary Cards</h4>
+                    <p>Introduction of Legendary rarity with Ice Wizard and Princess</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>July 2016 - Tournaments Update</h4>
+                    <p>Added tournament mode and new cards: Ice Spirit, Bowler, Lumberjack</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>April 2018 - Clan Wars</h4>
+                    <p>Major update introducing clan-based competitive gameplay</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>October 2021 - Champions</h4>
+                    <p>New Champion rarity added with special ability mechanics</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>November 2021 - Level 14</h4>
+                    <p>Maximum card level increased to 14, later expanded to 15</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>2023 - Card Evolution</h4>
+                    <p>Evolution system allows certain cards to reach enhanced forms</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Competitive Scene</h2>
+            <p>
+                Clash Royale has developed a thriving esports ecosystem with professional players, 
+                teams, and organized tournaments. The Clash Royale League (CRL) features regional 
+                competitions and world championships with substantial prize pools.
+            </p>
+            <p>
+                Players progress through arenas based on their trophy count, starting from Goblin 
+                Stadium and advancing through increasingly challenging arenas. Upon reaching 4000 
+                trophies, players enter the league system with seasonal resets and rewards.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Clash Royale Fan Site | Game by Supercell</p>
+        <p>This is an unofficial fan website. Clash Royale is a trademark of Supercell Oy.</p>
+    </footer>
+</body>
+</html>
