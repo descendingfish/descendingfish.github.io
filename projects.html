@@ -1,33 +1,249 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projects - Beautiful Trees</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Beautiful Trees</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        nav a.active {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: white;
+            margin: 2rem 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #1b5e20;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #4caf50;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tree-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tree-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .tree-card img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .tree-info {
+            padding: 2rem;
+        }
+
+        .tree-info h3 {
+            color: #1b5e20;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .tree-info h4 {
+            color: #4caf50;
+            margin-bottom: 1rem;
+            font-style: italic;
+            font-weight: normal;
+        }
+
+        .tree-info p {
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .features {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid #e8f5e9;
+        }
+
+        .features strong {
+            color: #2e7d32;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #1b5e20;
+            background: rgba(255,255,255,0.3);
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+    </style>
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Projects</a></li>
-    </ul>
-  </nav>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html" class="active">Gallery</a></li>
+        </ul>
+    </nav>
 
-  <div class="container">
-    <h1>Tree Gallery</h1>
-    <p>Here are some photos from the garden:</p>
+    <div class="container">
+        <header>
+            <h1>📸 Tree Gallery 📸</h1>
+            <p class="subtitle">A Visual Journey Through Our Collection</p>
+        </header>
 
-    <div class="gallery">
-      <img src="assets/pic1.jpg" alt="Red Japanese Maple">
-      <img src="assets/pic2.jpg" alt="Shaped Pine Tree">
-      <img src="assets/pic3.jpg" alt="Golden Maple Tree">
+        <div class="gallery">
+            <!-- Tree 1: Japanese Maple -->
+            <div class="tree-card">
+                <img src="assets/pic1.jpg" alt="Japanese Maple in golden fall colors">
+                <div class="tree-info">
+                    <h3>Japanese Maple</h3>
+                    <h4>Acer palmatum</h4>
+                    <p>
+                        This stunning Japanese Maple showcases the quintessential beauty of autumn with its 
+                        brilliant golden-yellow foliage. The delicate, finely-cut leaves create a graceful 
+                        canopy that seems to glow in the autumn light.
+                    </p>
+                    <p>
+                        Japanese Maples are among the most popular ornamental trees for good reason - they 
+                        offer incredible seasonal interest, manageable size, and elegant form. This specimen 
+                        demonstrates why gardeners cherish these trees.
+                    </p>
+                    <div class="features">
+                        <p><strong>Season:</strong> Fall</p>
+                        <p><strong>Color:</strong> Golden Yellow</p>
+                        <p><strong>Best For:</strong> Focal point, small gardens, understory planting</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tree 2: Topiary Evergreen -->
+            <div class="tree-card">
+                <img src="assets/pic2.jpg" alt="Cloud-pruned topiary evergreen tree">
+                <div class="tree-info">
+                    <h3>Topiary Evergreen</h3>
+                    <h4>Cloud-Pruned Conifer</h4>
+                    <p>
+                        This exquisite example of topiary art demonstrates the Japanese cloud pruning technique, 
+                        known as "Niwaki." The carefully sculpted tiers of dense blue-green foliage create 
+                        distinct "clouds" that appear to float above the exposed branch structure.
+                    </p>
+                    <p>
+                        Creating and maintaining this form requires skill, patience, and regular attention. 
+                        The result is a living sculpture that provides year-round interest and transforms an 
+                        ordinary conifer into a garden masterpiece.
+                    </p>
+                    <div class="features">
+                        <p><strong>Style:</strong> Japanese Cloud Pruning (Niwaki)</p>
+                        <p><strong>Color:</strong> Blue-Green Evergreen</p>
+                        <p><strong>Best For:</strong> Focal point, Asian-inspired gardens, formal landscapes</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tree 3: Smoke Bush -->
+            <div class="tree-card">
+                <img src="assets/pic3.jpg" alt="Smoke Bush with dark purple foliage">
+                <div class="tree-info">
+                    <h3>Smoke Bush</h3>
+                    <h4>Cotinus coggygria</h4>
+                    <p>
+                        This dramatic Smoke Bush variety features rich, dark purple-bronze foliage that provides 
+                        season-long color impact. The rounded leaves create a full, lush appearance, and the 
+                        dark coloring serves as an excellent contrast to green-leaved plants.
+                    </p>
+                    <p>
+                        Smoke Bushes get their common name from the airy, smoke-like flower panicles that appear 
+                        in summer. The combination of unique flowers and bold foliage color makes this one of the 
+                        most distinctive ornamental shrubs available.
+                    </p>
+                    <div class="features">
+                        <p><strong>Season:</strong> Spring through Fall</p>
+                        <p><strong>Color:</strong> Deep Purple-Bronze</p>
+                        <p><strong>Best For:</strong> Color contrast, mixed borders, specimen planting</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Beautiful Trees Showcase | Capturing Nature's Beauty</p>
+        </footer>
     </div>
-  </div>
-
-  <footer>
-    <p>© 2025 My Tree Garden</p>
-  </footer>
 </body>
 </html>
