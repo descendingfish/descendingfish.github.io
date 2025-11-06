@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clash Royale Card Quiz</title>
+    <title>Clash Royale - Home</title>
     <style>
         * {
             margin: 0;
@@ -13,299 +13,243 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
+            color: #333;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
+            gap: 40px;
+            flex-wrap: wrap;
         }
 
-        .container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 600px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        h1 {
-            color: #667eea;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-        }
-
-        .score {
-            text-align: center;
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        .card-display {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 15px;
-            padding: 30px;
-            text-align: center;
-            margin-bottom: 30px;
-            min-height: 250px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-emoji {
-            font-size: 100px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-info {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
-
-        .card-elixir {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #8b5cf6;
-        }
-
-        .card-type {
-            font-size: 1.1em;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .question {
-            font-size: 1.3em;
+        nav a {
             color: white;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .loading {
+            text-decoration: none;
             font-size: 1.2em;
-            color: white;
-        }
-
-        .options {
-            display: grid;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .option-btn {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 1.1em;
-            cursor: pointer;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 8px;
             transition: all 0.3s ease;
         }
 
-        .option-btn:hover:not(:disabled) {
-            background: #e9ecef;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .option-btn.correct {
-            background: #28a745;
-            color: white;
-            border-color: #28a745;
-        }
-
-        .option-btn.incorrect {
-            background: #dc3545;
-            color: white;
-            border-color: #dc3545;
-        }
-
-        .option-btn:disabled {
-            cursor: not-allowed;
-        }
-
-        .next-btn {
-            width: 100%;
+        nav a:hover,
+        nav a.active {
             background: #667eea;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background 0.3s ease;
+            transform: translateY(-2px);
         }
 
-        .next-btn:hover:not(:disabled) {
-            background: #5568d3;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
 
-        .next-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .feedback {
+        .hero {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
             text-align: center;
-            margin: 20px 0;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            color: #1e3c72;
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .hero-emoji {
+            font-size: 100px;
+            margin: 30px 0;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+
+        .content-section h2 {
+            color: #1e3c72;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .content-section p {
             font-size: 1.2em;
-            font-weight: bold;
-            min-height: 30px;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
         }
 
-        .feedback.correct {
-            color: #28a745;
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
         }
 
-        .feedback.incorrect {
-            color: #dc3545;
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card .emoji {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1em;
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            font-size: 1.1em;
         }
     </style>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Gallery</a></li>
+        </ul>
+    </nav>
+
     <div class="container">
-        <h1>⚔️ Clash Royale Quiz</h1>
-        <div class="score">Score: <span id="score">0</span> / <span id="total">0</span></div>
-        
-        <div class="card-display" id="cardDisplay">
-            <div class="loading">Loading quiz...</div>
+        <div class="hero">
+            <div class="hero-emoji">⚔️👑🏆</div>
+            <h1>Clash Royale</h1>
+            <p class="subtitle">Enter the Arena. Master the Cards. Claim Victory!</p>
         </div>
 
-        <div class="feedback" id="feedback"></div>
-        
-        <div class="options" id="options"></div>
-        
-        <button class="next-btn" id="nextBtn" onclick="nextQuestion()" disabled>Next Question</button>
+        <div class="content-section">
+            <h2>Welcome to Clash Royale</h2>
+            <p>
+                Clash Royale is a real-time multiplayer battle game developed by Supercell. 
+                Combining elements of collectible card games, tower defense, and multiplayer 
+                online battle arena, Clash Royale offers an exciting and strategic gaming experience.
+            </p>
+            <p>
+                Players collect and upgrade cards featuring Clash of Clans troops, spells, and 
+                defenses, then use them to battle opponents in fast-paced, three-minute matches. 
+                The goal? Destroy your opponent's towers while defending your own!
+            </p>
+            <p>
+                With over 100 unique cards to unlock and master, countless strategic combinations, 
+                and a vibrant competitive scene, Clash Royale continues to captivate millions of 
+                players worldwide since its launch in 2016.
+            </p>
+        </div>
+
+        <div class="content-section">
+            <h2>Game Features</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="emoji">🃏</div>
+                    <h3>100+ Cards</h3>
+                    <p>Collect troops, spells, and buildings across 5 rarities</p>
+                </div>
+                <div class="feature-card">
+                    <div class="emoji">⚡</div>
+                    <h3>Real-Time Battles</h3>
+                    <p>Fast-paced 3-minute duels against players worldwide</p>
+                </div>
+                <div class="feature-card">
+                    <div class="emoji">🏟️</div>
+                    <h3>Multiple Arenas</h3>
+                    <p>Progress through 15+ unique battle arenas</p>
+                </div>
+                <div class="feature-card">
+                    <div class="emoji">👥</div>
+                    <h3>Clan Wars</h3>
+                    <p>Team up with friends for epic clan battles</p>
+                </div>
+                <div class="feature-card">
+                    <div class="emoji">🎯</div>
+                    <h3>Strategy & Skill</h3>
+                    <p>Build the perfect deck and master your tactics</p>
+                </div>
+                <div class="feature-card">
+                    <div class="emoji">🏅</div>
+                    <h3>Competitive Scene</h3>
+                    <p>Join tournaments and climb the global leaderboards</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <script>
-        const cards = [
-            {name: "Knight", emoji: "⚔️", elixir: 3, type: "Troop"},
-            {name: "Archers", emoji: "🏹", elixir: 3, type: "Troop"},
-            {name: "Giant", emoji: "👹", elixir: 5, type: "Troop"},
-            {name: "Goblins", emoji: "👺", elixir: 2, type: "Troop"},
-            {name: "P.E.K.K.A", emoji: "🤖", elixir: 7, type: "Troop"},
-            {name: "Fireball", emoji: "🔥", elixir: 4, type: "Spell"},
-            {name: "Mini P.E.K.K.A", emoji: "🦾", elixir: 4, type: "Troop"},
-            {name: "Musketeer", emoji: "💂", elixir: 4, type: "Troop"},
-            {name: "Baby Dragon", emoji: "🐲", elixir: 4, type: "Troop"},
-            {name: "Prince", emoji: "🤴", elixir: 5, type: "Troop"},
-            {name: "Wizard", emoji: "🧙", elixir: 5, type: "Troop"},
-            {name: "Skeleton Army", emoji: "💀", elixir: 3, type: "Troop"},
-            {name: "Witch", emoji: "🧙‍♀️", elixir: 5, type: "Troop"},
-            {name: "Valkyrie", emoji: "⚔️👸", elixir: 4, type: "Troop"},
-            {name: "Lightning", emoji: "⚡", elixir: 6, type: "Spell"},
-            {name: "Hog Rider", emoji: "🐗", elixir: 4, type: "Troop"},
-            {name: "Minion Horde", emoji: "🦇", elixir: 5, type: "Troop"},
-            {name: "Barbarians", emoji: "🪓", elixir: 5, type: "Troop"},
-            {name: "Golem", emoji: "🗿", elixir: 8, type: "Troop"},
-            {name: "Balloon", emoji: "🎈", elixir: 5, type: "Troop"},
-            {name: "Freeze", emoji: "❄️", elixir: 4, type: "Spell"},
-            {name: "Mirror", emoji: "🪞", elixir: 1, type: "Spell"},
-            {name: "Mega Knight", emoji: "👑", elixir: 7, type: "Troop"},
-            {name: "Electro Wizard", emoji: "⚡🧙", elixir: 4, type: "Troop"},
-            {name: "Sparky", emoji: "⚙️", elixir: 6, type: "Troop"},
-            {name: "Miner", emoji: "⛏️", elixir: 3, type: "Troop"},
-            {name: "Ice Wizard", emoji: "🧊🧙", elixir: 3, type: "Troop"},
-            {name: "Lava Hound", emoji: "🌋", elixir: 7, type: "Troop"},
-            {name: "The Log", emoji: "🪵", elixir: 2, type: "Spell"},
-            {name: "Inferno Dragon", emoji: "🔥🐉", elixir: 4, type: "Troop"},
-            {name: "Arrows", emoji: "➡️", elixir: 3, type: "Spell"},
-            {name: "Rocket", emoji: "🚀", elixir: 6, type: "Spell"},
-            {name: "Tornado", emoji: "🌪️", elixir: 3, type: "Spell"},
-            {name: "Zap", emoji: "⚡💥", elixir: 2, type: "Spell"},
-            {name: "Poison", emoji: "☠️", elixir: 4, type: "Spell"}
-        ];
-
-        let currentCard = null;
-        let score = 0;
-        let totalQuestions = 0;
-        let answered = false;
-
-        function showQuestion() {
-            answered = false;
-            document.getElementById('nextBtn').disabled = true;
-            document.getElementById('feedback').textContent = '';
-            document.getElementById('feedback').className = 'feedback';
-
-            currentCard = cards[Math.floor(Math.random() * cards.length)];
-            
-            document.getElementById('cardDisplay').innerHTML = `
-                <div class="card-emoji">${currentCard.emoji}</div>
-                <div class="card-info">
-                    <div class="card-elixir">💧 ${currentCard.elixir} Elixir</div>
-                    <div class="card-type">${currentCard.type}</div>
-                </div>
-                <div class="question">What is this card?</div>
-            `;
-
-            const options = generateOptions(currentCard);
-            const optionsHtml = options.map(option => 
-                `<button class="option-btn" onclick="checkAnswer('${option.replace(/'/g, "\\'")}')">${option}</button>`
-            ).join('');
-            
-            document.getElementById('options').innerHTML = optionsHtml;
-        }
-
-        function generateOptions(correctCard) {
-            const options = [correctCard.name];
-            const availableCards = cards.filter(c => c.name !== correctCard.name);
-            
-            while (options.length < 4 && availableCards.length > 0) {
-                const randomIndex = Math.floor(Math.random() * availableCards.length);
-                const randomCard = availableCards.splice(randomIndex, 1)[0];
-                options.push(randomCard.name);
-            }
-            
-            return options.sort(() => Math.random() - 0.5);
-        }
-
-        function checkAnswer(selectedName) {
-            if (answered) return;
-            
-            answered = true;
-            totalQuestions++;
-            
-            const buttons = document.querySelectorAll('.option-btn');
-            buttons.forEach(btn => {
-                btn.disabled = true;
-                if (btn.textContent === currentCard.name) {
-                    btn.classList.add('correct');
-                }
-                if (btn.textContent === selectedName && selectedName !== currentCard.name) {
-                    btn.classList.add('incorrect');
-                }
-            });
-
-            const feedback = document.getElementById('feedback');
-            if (selectedName === currentCard.name) {
-                score++;
-                feedback.textContent = '✓ Correct!';
-                feedback.className = 'feedback correct';
-            } else {
-                feedback.textContent = `✗ Wrong! It was ${currentCard.name}`;
-                feedback.className = 'feedback incorrect';
-            }
-
-            document.getElementById('score').textContent = score;
-            document.getElementById('total').textContent = totalQuestions;
-            document.getElementById('nextBtn').disabled = false;
-        }
-
-        function nextQuestion() {
-            showQuestion();
-        }
-
-        showQuestion();
-    </script>
+    <footer>
+        <p>&copy; 2024 Clash Royale Fan Site | Game by Supercell</p>
+        <p>This is an unofficial fan website. Clash Royale is a trademark of Supercell Oy.</p>
+    </footer>
 </body>
 </html>
+
+<!-- 
+FOLDER STRUCTURE:
+project-folder/
+├── index.html (this file - homepage)
+├── about.html (about page)
+├── projects.html (gallery page)
+└── assets/
+    ├── pic1.jpg (card image 1)
+    ├── pic2.jpg (card image 2)
+    └── pic3.jpg (card image 3)
+
+TO GET IMAGES FROM CLASH ROYALE WIKI:
+1. Visit: https://clashroyale.fandom.com/wiki/Category:Card_Images
+2. Click on any card image (e.g., "File:KnightCard.png")
+3. Right-click the image and "Save image as..."
+4. Save as pic1.jpg, pic2.jpg, pic3.jpg in the assets folder
+5. Recommended cards: Knight, Wizard, P.E.K.K.A (popular cards with good visuals)
+
+ALTERNATIVE METHOD:
+Use placeholder images or screenshots from the game until you can get official images.
+-->
