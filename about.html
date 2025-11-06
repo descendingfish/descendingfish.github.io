@@ -1,33 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About - Beautiful Trees</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Beautiful Trees</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        nav a.active {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: white;
+            margin: 2rem 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #1b5e20;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #4caf50;
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        .content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            color: #2e7d32;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        h3 {
+            color: #388e3c;
+            margin: 1.5rem 0 0.75rem 0;
+            font-size: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .info-box h4 {
+            color: #1b5e20;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #1b5e20;
+            background: rgba(255,255,255,0.3);
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+    </style>
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Projects</a></li>
-    </ul>
-  </nav>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" class="active">About</a></li>
+            <li><a href="projects.html">Gallery</a></li>
+        </ul>
+    </nav>
 
-  <div class="container">
-    <h1>About These Trees</h1>
-    <p>Each tree in this collection was planted for its unique shape, color, and contribution to the landscape’s year-round beauty.</p>
+    <div class="container">
+        <header>
+            <h1>🌿 About Our Trees 🌿</h1>
+            <p class="subtitle">Learn About These Beautiful Ornamental Specimens</p>
+        </header>
 
-    <ul style="text-align:left; max-width:600px; margin:auto;">
-      <li><strong>Japanese Maple (Red):</strong> Known for its deep red leaves and elegant shape, perfect for autumn beauty.</li>
-      <li><strong>Shaped Pine Tree:</strong> Pruned into cloud-like forms, representing balance and patience in design.</li>
-      <li><strong>Golden Japanese Maple:</strong> A bright yellow-green variety that glows in the sunlight during fall.</li>
-    </ul>
-  </div>
+        <div class="content">
+            <h2>Why Ornamental Trees Matter</h2>
+            <p>
+                Ornamental trees are the backbone of beautiful landscapes. They provide structure, 
+                seasonal interest, and create focal points that draw the eye and inspire wonder. 
+                Unlike purely functional trees, ornamental specimens are chosen specifically for 
+                their aesthetic qualities.
+            </p>
+            <p>
+                The three trees featured in this collection represent different aspects of ornamental 
+                gardening: fall color, artistic form, and dramatic foliage. Each serves a unique purpose 
+                in the landscape while contributing to the overall beauty of the garden.
+            </p>
+        </div>
 
-  <footer>
-    <p>© 2025 My Tree Garden</p>
-  </footer>
+        <div class="content">
+            <h2>Meet Our Featured Trees</h2>
+            
+            <h3>🍂 Japanese Maple (Acer palmatum)</h3>
+            <p>
+                Japanese Maples are beloved for their delicate, palmate leaves and spectacular fall color. 
+                These trees transform gardens into living paintings each autumn, displaying brilliant shades 
+                of yellow, orange, and red. The specimen shown features stunning golden-yellow fall foliage.
+            </p>
+            
+            <div class="info-grid">
+                <div class="info-box">
+                    <h4>Mature Size</h4>
+                    <p>15-25 feet tall</p>
+                </div>
+                <div class="info-box">
+                    <h4>Growth Rate</h4>
+                    <p>Slow to moderate</p>
+                </div>
+                <div class="info-box">
+                    <h4>Best Feature</h4>
+                    <p>Fall color display</p>
+                </div>
+            </div>
+
+            <h3>🌲 Topiary Evergreen (Conifer Species)</h3>
+            <p>
+                This beautifully sculpted evergreen showcases the art of topiary pruning. Cloud pruning creates 
+                distinct tiers or "clouds" of foliage separated by exposed branches, resulting in a living sculpture. 
+                This Japanese-inspired technique transforms ordinary conifers into artistic masterpieces.
+            </p>
+            
+            <div class="info-grid">
+                <div class="info-box">
+                    <h4>Pruning Style</h4>
+                    <p>Cloud (Niwaki) pruning</p>
+                </div>
+                <div class="info-box">
+                    <h4>Maintenance</h4>
+                    <p>Regular pruning needed</p>
+                </div>
+                <div class="info-box">
+                    <h4>Best Feature</h4>
+                    <p>Year-round structure</p>
+                </div>
+            </div>
+
+            <h3>🍃 Smoke Bush (Cotinus coggygria)</h3>
+            <p>
+                Smoke Bushes are prized for their dark purple to bronze foliage and their unique "smoky" flower 
+                panicles that give the plant its name. The specimen shown displays rich, dark foliage that provides 
+                dramatic contrast in the landscape. These trees are excellent for adding bold color throughout 
+                the growing season.
+            </p>
+            
+            <div class="info-grid">
+                <div class="info-box">
+                    <h4>Foliage Color</h4>
+                    <p>Deep purple-bronze</p>
+                </div>
+                <div class="info-box">
+                    <h4>Unique Feature</h4>
+                    <p>Smoky flower panicles</p>
+                </div>
+                <div class="info-box">
+                    <h4>Best Feature</h4>
+                    <p>Season-long color</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2>Care and Maintenance</h2>
+            <p>
+                All ornamental trees require proper care to reach their full potential. This includes appropriate 
+                watering, especially during establishment, regular fertilization, and proper pruning techniques. 
+                Understanding each tree's specific needs ensures they thrive and provide beauty for years to come.
+            </p>
+            <p>
+                Location is crucial - consider mature size, sun exposure, and soil conditions when selecting 
+                where to plant. Most ornamental trees prefer well-drained soil and benefit from mulching to 
+                retain moisture and suppress weeds.
+            </p>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Beautiful Trees Showcase | Cultivating Beauty One Tree at a Time</p>
+        </footer>
+    </div>
 </body>
 </html>
